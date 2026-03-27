@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>iBuxCn · Compact Dashboard</title>
+    <title>iBuxCn · Earn & Reward Dashboard</title>
     <style>
-        /* ---------- RESET + DARK ORANGE/RED GRADIENT ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -14,327 +13,170 @@
 
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #2a1a0c 0%, #3d0f0f 50%, #2c0707 100%);
+            background: linear-gradient(135deg, #0f0b07 0%, #2c150a 50%, #1f0805 100%);
             min-height: 100vh;
             font-size: 13px;
-            line-height: 1.3;
-            /* Desktop shrink: center the whole app with a max-width + margin auto + subtle outer padding */
+            line-height: 1.35;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 24px 20px;
+            padding: 20px;
         }
 
-        /* MAIN APP CONTAINER — shrinked desktop version, not full-screen, elegant card-like */
         .app-wrapper {
-            max-width: 1320px;
+            max-width: 1450px;
             width: 100%;
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.35);
             border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 100, 40, 0.2);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 35, 0.3);
             overflow: hidden;
-            backdrop-filter: blur(2px);
-            transition: all 0.2s ease;
+            backdrop-filter: blur(3px);
         }
 
-        /* header - semi-transparent but readable */
+        /* header */
         .header {
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 100, 30, 0.5);
-            padding: 6px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #ff6e2e;
+            padding: 8px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 100;
+            gap: 12px;
         }
 
-        /* Logo styling - now contains image */
         .logo {
-            background: rgba(255, 80, 40, 0.25);
-            padding: 5px 14px;
-            border: 1px solid #ff6a2c;
-            border-radius: 10px;
+            background: rgba(255, 90, 40, 0.2);
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid #ff7a3a;
+            cursor: pointer;
+            transition: 0.2s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            min-width: 100px;
+            gap: 8px;
         }
         .logo:hover {
-            background: rgba(255, 80, 40, 0.45);
-            border-color: #ffaa66;
+            background: rgba(255, 90, 40, 0.5);
+            transform: scale(0.98);
         }
         .logo img {
-            height: 32px;
+            height: 34px;
             width: auto;
             display: block;
-            object-fit: contain;
         }
-        
-        /* Fallback text style if image fails */
-        .logo-text-fallback {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #ffb347;
-            letter-spacing: -0.2px;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        .logo span {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #ffbc7a;
+            letter-spacing: -0.5px;
         }
 
-        /* NAV TABS — warm dark */
         .nav-tabs {
             display: flex;
-            gap: 2px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 40px;
-            padding: 2px;
+            gap: 4px;
+            background: #1f130e80;
+            border-radius: 60px;
+            padding: 4px 8px;
+            flex-wrap: wrap;
         }
-
         .nav-tab {
-            padding: 6px 18px;
+            padding: 6px 20px;
             font-size: 0.8rem;
-            font-weight: 500;
-            background: transparent;
-            border-radius: 32px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            color: #ffcf9a;
-            text-align: center;
-        }
-
-        .nav-tab:hover {
-            background: rgba(255, 100, 50, 0.5);
-            color: #ffe0b5;
-        }
-
-        .nav-tab.active {
-            background: #ff6a2c;
-            box-shadow: 0 2px 8px rgba(255, 80, 20, 0.5);
-            color: white;
             font-weight: 600;
+            background: transparent;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #ffcf9a;
+            transition: 0.1s;
+        }
+        .nav-tab:hover { background: #ff6a2ccc; color: white; }
+        .nav-tab.active {
+            background: #ff5722;
+            color: white;
+            box-shadow: 0 2px 10px #ff5722aa;
         }
 
-        /* header icons */
         .header-icons {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
-        /* RECTANGULAR MINI SMALL BADGE GREEN LIGHT */
-        .notification-badge {
-            background: #1e4a2f;
-            color: #b0ffc0;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            letter-spacing: -0.2px;
-            border-left: 3px solid #5eff7e;
-            box-shadow: 0 0 4px rgba(80, 255, 100, 0.3);
+        .balance-badge {
+            background: #1f3a2a;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: #d4ffb0;
+            border-left: 3px solid #ffb347;
+            font-size: 0.75rem;
         }
-        .green-dot {
-            width: 8px;
-            height: 8px;
-            background: #5eff7e;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #5eff7e;
-            display: inline-block;
-        }
-
-        /* logout button - icon only */
         .logout-icon {
-            background: rgba(220, 60, 30, 0.6);
+            background: #5e2a1a;
             border: 1px solid #ff7840;
-            border-radius: 10px;
-            padding: 6px 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            color: #ffbc7a;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .logout-icon:hover {
-            background: #ff4a1c;
-            color: white;
-            border-color: #ffaa66;
-            transform: scale(0.97);
-        }
-
-        .rect-icon {
-            background: rgba(255, 100, 50, 0.5);
-            border-radius: 10px;
             padding: 5px 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #ffb56b;
-            border: 1px solid #ff7740;
+            border-radius: 30px;
+            font-weight: bold;
             cursor: pointer;
+            color: #ffc285;
         }
 
-        /* mobile toggle */
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-            padding: 5px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 8px;
-            border: 1px solid #ff6a2c;
-        }
-        .mobile-menu-toggle span {
-            width: 22px;
-            height: 2px;
-            background: #ffae6a;
-            border-radius: 2px;
-        }
-
-        /* MAIN LAYOUT */
+        /* main layout */
         .main-container {
             display: flex;
-            min-height: calc(100vh - 52px);
-            align-items: stretch;
+            min-height: calc(100vh - 62px);
         }
-
-        /* left sidebar warm dark */
-        .left-sidebar {
-            width: 150px;
-            background: rgba(20, 8, 5, 0.75);
-            backdrop-filter: blur(4px);
-            border-right: 1px solid rgba(255, 80, 40, 0.4);
-            padding: 14px 10px;
-        }
-
-        .home-link {
-            display: block;
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid #ff8040;
-            border-radius: 12px;
-            text-align: center;
-            color: #ffc489;
-            text-decoration: none;
-            transition: 0.1s;
-        }
-        .home-link:hover {
-            background: #ff5824;
-            color: white;
-            border-color: #ffbc70;
-        }
-
-        /* main content */
         .main-content {
             flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 18px 16px;
-            overflow-x: auto;
-            min-height: 300px;
-        }
-        
-        /* welcome card inside main content - makes dashboard visible */
-        .welcome-card {
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(4px);
-            border-radius: 28px;
-            padding: 24px 20px;
-            border: 1px solid rgba(255, 120, 64, 0.6);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .welcome-card h2 {
-            color: #ffbc7a;
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            letter-spacing: -0.3px;
-        }
-        .welcome-card p {
-            color: #ffe0bc;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 20px;
-        }
-        .stats-mini {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        .stat-item {
-            background: #2d1b12;
-            padding: 8px 16px;
-            border-radius: 60px;
-            border-left: 3px solid #ff7840;
-            font-weight: 600;
-            color: #ffcf9a;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 20px 18px;
+            overflow-y: auto;
+            max-height: calc(100vh - 62px);
         }
 
-        /* RIGHT SIDEBAR - chat panel area */
+        /* right sidebar (chat container) */
         .right-sidebar {
-            width: 320px;
-            background: rgba(15, 5, 3, 0.85);
-            backdrop-filter: blur(8px);
-            border-left: 1px solid rgba(255, 80, 40, 0.6);
-            padding: 16px 14px;
+            width: 340px;
+            background: rgba(12, 5, 3, 0.85);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid #ff7840;
             display: flex;
             flex-direction: column;
+            transition: all 0.25s ease;
         }
-
-        /* action buttons group */
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .action-btn {
-            flex: 1;
-            background: #2f1810;
-            border: 1px solid #ff6a2c;
-            padding: 8px 0;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #ffbc8c;
-            cursor: pointer;
-            transition: 0.15s;
-            text-align: center;
-        }
-        .action-btn.active-panel {
-            background: #ff5722;
-            color: white;
-            border-color: #ffaa70;
-            box-shadow: 0 0 6px #ff7733;
-        }
-        .action-btn:hover {
-            background: #ff5e2a;
-            color: white;
-        }
-
-        /* chat panel container */
-        .chat-panel {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            border: 1px solid #ff7e44;
-            display: flex;
-            flex-direction: column;
-            height: 380px;
+        .right-sidebar.collapsed {
+            width: 0;
+            padding: 0;
             overflow: hidden;
+            border-left: none;
+        }
+        .chat-panel {
+            background: #17100be6;
+            border-radius: 20px;
+            margin: 12px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 24px);
+            border: 1px solid #ff7640;
+        }
+        .panel-header {
+            padding: 12px 16px;
+            background: #2c1810;
+            border-radius: 20px 20px 0 0;
+            font-weight: bold;
+            color: #ffbc7a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hide-chat-btn {
+            background: none;
+            border: none;
+            color: #ffaa66;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
         }
         .messages-area {
             flex: 1;
@@ -342,586 +184,442 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            font-size: 0.75rem;
+            gap: 8px;
+            min-height: 280px;
         }
         .message-bubble {
-            max-width: 85%;
+            max-width: 90%;
             padding: 8px 12px;
             border-radius: 18px;
-            background: #2c1a12;
-            color: #ffdbb5;
-            word-wrap: break-word;
-            border: 1px solid #ff7940;
+            background: #2d1b12;
+            color: #ffe0bc;
+            font-size: 0.75rem;
+            border: 1px solid #ff874c;
         }
-        .message-bubble.user {
-            align-self: flex-end;
-            background: #ff5722cc;
-            color: white;
-            border-color: #ffaa70;
-        }
-        .message-bubble.bot {
-            align-self: flex-start;
-            background: #20100acc;
-            border-color: #ff7e4a;
-        }
+        .message-bubble.user { align-self: flex-end; background: #ff5722dd; color: white; border-color: #ffb57a; }
+        .message-bubble.bot { align-self: flex-start; background: #23150e; }
         .input-area {
             display: flex;
-            gap: 8px;
-            padding: 12px;
-            background: #1f0f08;
-            border-top: 1px solid #ff6a2c;
-            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            border-top: 1px solid #ff7840;
+            background: #1c0e08;
+            border-radius: 0 0 20px 20px;
         }
-        .chat-input {
-            flex: 1;
-            background: #311d14;
-            border: 1px solid #ff854a;
-            border-radius: 40px;
-            padding: 8px 14px;
-            color: #ffe2c4;
-            font-size: 0.75rem;
-            outline: none;
-        }
-        .chat-input:focus {
-            border-color: #ffa05e;
-            background: #45281c;
-        }
-        .send-btn {
+        .chat-input { flex: 1; background: #2f1d13; border: 1px solid #ff7a48; border-radius: 40px; padding: 8px 14px; color: #fff0df; outline: none; }
+        .send-btn { background: #ff5722; border: none; border-radius: 40px; padding: 6px 16px; color: white; font-weight: bold; cursor: pointer; }
+        .show-chat-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             background: #ff5722;
-            border: none;
-            border-radius: 40px;
-            padding: 6px 16px;
-            font-weight: bold;
+            border-radius: 50px;
+            padding: 10px 18px;
             color: white;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.1s;
+            display: none;
+            z-index: 200;
+            box-shadow: 0 4px 12px black;
+            border: 1px solid #ffaa66;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding: 0 12px;
+        }
+        .action-btn {
+            flex: 1;
+            background: #2c1911;
+            border: 1px solid #ff7840;
+            padding: 6px 0;
+            border-radius: 30px;
             font-size: 0.7rem;
-        }
-        .send-btn:hover {
-            background: #ff7840;
-        }
-        .emoji-btn {
-            background: #3f231a;
-            border: 1px solid #ff8048;
-            border-radius: 40px;
-            padding: 6px 14px;
+            font-weight: bold;
+            color: #ffcf9a;
             cursor: pointer;
-            font-size: 1.1rem;
-            color: #ffbc80;
-            transition: 0.1s;
+            text-align: center;
         }
-        .emoji-btn:hover {
-            background: #ff5e2e;
-        }
-        .panel-header {
-            padding: 10px 12px;
-            background: #2a140ecc;
-            border-bottom: 1px solid #ff7840;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #ffbc80;
-        }
+        .action-btn.active-panel { background: #ff5722; color: white; border-color: #ffbc80; }
 
-        /* ========== FIXED MOBILE MENU - CLEAR AND READABLE ========== */
-        @media screen and (max-width: 640px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
-            .nav-tabs {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 12px;
-                right: 12px;
-                background: #1f120b;
-                background-color: #23170f;
-                flex-direction: column;
-                gap: 8px;
-                border-radius: 24px;
-                padding: 16px;
-                z-index: 2000;
-                border: 2px solid #ff7840;
-                box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-                backdrop-filter: none;
-                background: linear-gradient(135deg, #2a1a12, #1f0f08);
-            }
-            
-            .nav-tabs.active {
-                display: flex;
-            }
-            
-            .nav-tab {
-                text-align: center;
-                padding: 12px 16px;
-                background: rgba(0,0,0,0.6);
-                border-radius: 60px;
-                font-size: 0.9rem;
-                font-weight: 600;
-                color: #ffcf9a;
-                border: 1px solid #ff7e44;
-                margin: 2px 0;
-            }
-            
-            .nav-tab.active {
-                background: #ff6a2c;
-                color: white;
-                border-color: #ffaa70;
-            }
-            
-            .nav-tab:hover {
-                background: #ff5e2a;
-                color: white;
-            }
-            
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                backdrop-filter: blur(4px);
-                z-index: 1500;
-            }
-            
-            .overlay.active {
-                display: block;
-            }
-            
-            .header {
-                position: relative;
-                z-index: 1600;
-            }
-            
-            .logo {
-                order: 2;
-                margin-right: auto;
-            }
-            
-            .mobile-menu-toggle {
-                order: 1;
-            }
-            
-            .header-icons {
-                order: 3;
-            }
+        /* card style for sections (earn, shop, leaders, profile, help) */
+        .section-card {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 28px;
+            border: 1px solid #ff7e44;
+            padding: 20px 24px;
+            margin-bottom: 20px;
         }
-        
-        /* Responsive: on medium screens shrink spacing and right sidebar width a bit */
-        @media screen and (max-width: 980px) {
-            .app-wrapper {
-                max-width: 100%;
-                margin: 0;
-            }
-            .left-sidebar { width: 130px; }
-            .right-sidebar { width: 300px; }
+        .stats-grid, .offers-grid, .shop-grid, .leaderboard-list, .profile-details, .help-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
         }
-        
-        @media screen and (max-width: 760px) {
-            .main-container { flex-wrap: wrap; }
-            .left-sidebar { 
-                width: 100%; 
-                border-right: none; 
-                border-bottom: 1px solid #ff7840; 
-                display: flex; 
-                justify-content: center; 
-                background: rgba(0,0,0,0.7);
-            }
-            .home-link { width: auto; display: inline-block; }
-            .main-content { order: 2; }
-            .right-sidebar { order: 3; width: 100%; border-left: none; border-top: 1px solid #ff7840; }
-            .action-buttons { gap: 10px; }
+        .stat-badge { background: #2e1c12; border-radius: 40px; padding: 10px 20px; border-left: 4px solid #ff7a3a; color: #ffdbb5; }
+        .offer-item, .shop-item { background: #1e130d; padding: 10px 16px; border-radius: 28px; border: 1px solid #ff7a48; width: auto; min-width: 140px; color: #ffddb0; font-weight: 500; }
+        .leader-row { background: #21120b; padding: 8px 16px; border-radius: 60px; display: flex; justify-content: space-between; width: 100%; border-bottom: 1px solid #ff7840; }
+        .profile-field { background: #1d130e; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-right: 12px; margin-bottom: 8px; }
+        .help-item { background: #1f150f; padding: 12px 18px; border-radius: 24px; width: 100%; }
+        h2 { color: #ffb66b; margin-bottom: 12px; font-size: 1.5rem; }
+        h3 { color: #ffbc8a; margin-bottom: 8px; }
+        hr { border-color: #ff7840; margin: 12px 0; }
+
+        @media (max-width: 800px) {
+            .main-container { flex-direction: column; }
+            .right-sidebar { width: 100%; border-left: none; border-top: 1px solid #ff7840; max-height: 400px; }
+            .right-sidebar.collapsed { display: none; }
+            .show-chat-fab { display: flex; align-items: center; gap: 8px; }
+            .nav-tabs { justify-content: center; }
         }
-        
-        @media screen and (max-width: 480px) {
-            .right-sidebar { padding: 12px; }
-            .chat-panel { height: 340px; }
-            .nav-tab { padding: 10px 12px; font-size: 0.85rem; }
-            .logo img { height: 26px; }
+        @media (max-width: 550px) {
+            .header { flex-direction: column; align-items: stretch; }
+            .nav-tabs { justify-content: center; }
         }
-        
-        /* subtle scrollbar */
-        .messages-area::-webkit-scrollbar {
-            width: 4px;
-        }
-        .messages-area::-webkit-scrollbar-track {
-            background: #2c1a12;
-            border-radius: 4px;
-        }
-        .messages-area::-webkit-scrollbar-thumb {
-            background: #ff7840;
-            border-radius: 4px;
-        }
-        
-        button, .nav-tab, .action-btn, .logout-icon, .rect-icon {
-            cursor: pointer;
-        }
+        button { cursor: pointer; }
+        .referral-code { background: #00000066; padding: 6px 12px; border-radius: 20px; font-family: monospace; }
     </style>
 </head>
 <body>
-    <div class="app-wrapper">
-        <div class="overlay" id="overlay"></div>
-
-        <header class="header">
-            <div class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span><span></span><span></span>
-            </div>
-            <div class="logo" id="logoContainer">
-                <img src="https://imglink.cc/cdn/_kyTq7xzuI.png" alt="iBuxCn Logo" id="logoImage" style="height: 32px; width: auto;">
-            </div>
-            <nav class="nav-tabs" id="navTabs">
-                <div class="nav-tab active" data-tab="dash">Earn</div>
-                <div class="nav-tab" data-tab="analytics">Shop</div>
-                <div class="nav-tab" data-tab="reports">Leaders</div>
-                <div class="nav-tab" data-tab="tasks">Profile</div>
-                <div class="nav-tab" data-tab="team">Help</div>
-                <div class="nav-tab" data-tab="settings">Chat</div>
-            </nav>
-            <div class="header-icons">
-                <div class="notification-badge">
-                    <span class="green-dot"></span> 0.00
-                </div>
-                <div class="logout-icon" id="logoutBtn">➜]</div>
-                
-            </div>
-        </header>
-
-        <div class="main-container">
-            
-
-            <main class="main-content" id="mainContent">
-                <div class="welcome-card">
-                    <h2>Welcome to iBuxCn</h2>
-                    <p>Do Task Get pts enjoy reward.</p>
-                    <div class="stats-mini">
-                        <div class="stat-item">📊 Active Sessions: 143</div>
-                        <div class="stat-item">💬 Messages: 28</div>
-                        <div class="stat-item">✅ Tasks: 12/24</div>
-                    </div>
-                </div>
-            </main>
-
-            <aside class="right-sidebar" id="rightSidebar">
-                <div class="action-buttons">
-                    <button class="action-btn" data-panel="chat">CHAT</button>
-                    <button class="action-btn" data-panel="rules">RULES</button>
-                    <button class="action-btn" data-panel="support">SUPPORT</button>
-                </div>
-                <div id="dynamicPanel" class="chat-panel">
-                    <div class="panel-header">CHAT</div>
-                    <div class="messages-area" id="messagesArea">
-                        <div class="message-bubble bot">Welcome! Type your message.</div>
-                    </div>
-                    <div class="input-area">
-                        <input type="text" class="chat-input" id="chatInput" placeholder="Write a message...">
-                        <button class="send-btn" id="sendBtn">Send</button>
-                        <button class="emoji-btn" id="emojiBtn">😀</button>
-                    </div>
-                </div>
-            </aside>
+<div class="app-wrapper">
+    <header class="header">
+        <div class="logo" id="mainLogo">
+            <img src="https://imglink.cc/cdn/_kyTq7xzuI.png" alt="iBuxCn" id="logoImage" onerror="this.onerror=null; this.parentElement.innerHTML='<span>🔥iBuxCn</span>'">
+            <span>iBuxCn</span>
         </div>
-    </div>
+        <nav class="nav-tabs" id="navTabs">
+            <div class="nav-tab active" data-section="earn">EARN</div>
+            <div class="nav-tab" data-section="shop">SHOP</div>
+            <div class="nav-tab" data-section="leaders">LEADERS</div>
+            <div class="nav-tab" data-section="profile">PROFILE</div>
+            <div class="nav-tab" data-section="help">HELP</div>
+            <div class="nav-tab" data-section="chatview">CHAT</div>
+        </nav>
+        <div class="header-icons">
+            <div class="balance-badge">💎 BAL: 632</div>
+            <div class="logout-icon" id="logoutBtn">🚪 EXIT</div>
+        </div>
+    </header>
 
-    <script>
-        (function() {
-            // Handle logo image loading - if fails, show styled text
-            const logoImg = document.getElementById('logoImage');
-            const logoContainer = document.getElementById('logoContainer');
-            
-            if (logoImg) {
-                logoImg.onerror = function() {
-                    if (logoContainer) {
-                        logoContainer.innerHTML = '<span class="logo-text-fallback">iBuxCn</span>';
-                    }
-                };
-                logoImg.onload = function() {
-                    console.log('Logo loaded successfully');
-                };
+    <div class="main-container">
+        <main class="main-content" id="mainContent">
+            <!-- dynamic sections loaded here -->
+        </main>
+
+        <aside class="right-sidebar" id="chatSidebar">
+            <div class="chat-panel">
+                <div class="panel-header">
+                    <span>💬 COMMUNITY HUB</span>
+                    <button class="hide-chat-btn" id="hideChatBtn">✕ HIDE</button>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn" data-chatpanel="chat">CHAT</button>
+                    <button class="action-btn" data-chatpanel="rules">RULES</button>
+                    <button class="action-btn" data-chatpanel="support">SUPPORT</button>
+                </div>
+                <div class="messages-area" id="chatMessagesArea">
+                    <div class="message-bubble bot">✨ Welcome! Chat, rules & support here.</div>
+                </div>
+                <div class="input-area">
+                    <input type="text" class="chat-input" id="chatMsgInput" placeholder="Write a message...">
+                    <button class="send-btn" id="sendChatMsg">SEND</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <div class="show-chat-fab" id="showChatFab">💬 SHOW CHAT</div>
+</div>
+
+<script>
+    (function() {
+        // ---- DATA MODELS ----
+        let currentSection = 'earn';
+        let currentChatPanel = 'chat';
+        let chatHistory = {
+            chat: [{ role: 'bot', text: 'Welcome! Ask anything about tasks or promos.' }],
+            rules: [{ role: 'bot', text: '📜 RULES:\n1. No cheating on offers.\n2. Respect members.\n3. Only one account.\n4. Enjoy grinding!' }],
+            support: [{ role: 'bot', text: '🛟 SUPPORT: Open a ticket or describe your issue. We reply within 24h.' }]
+        };
+
+        // helper: render chat messages based on current panel
+        function renderChatMessages() {
+            const container = document.getElementById('chatMessagesArea');
+            if (!container) return;
+            const messages = chatHistory[currentChatPanel] || [];
+            container.innerHTML = '';
+            messages.forEach(msg => {
+                const bubble = document.createElement('div');
+                bubble.className = `message-bubble ${msg.role === 'user' ? 'user' : 'bot'}`;
+                bubble.textContent = msg.text;
+                container.appendChild(bubble);
+            });
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addMessage(panel, role, text) {
+            if (!chatHistory[panel]) chatHistory[panel] = [];
+            chatHistory[panel].push({ role, text });
+            if (currentChatPanel === panel) renderChatMessages();
+        }
+
+        function setActiveChatButton(panel) {
+            document.querySelectorAll('.action-btn[data-chatpanel]').forEach(btn => {
+                if (btn.getAttribute('data-chatpanel') === panel) btn.classList.add('active-panel');
+                else btn.classList.remove('active-panel');
+            });
+        }
+
+        function switchChatPanel(panel) {
+            currentChatPanel = panel;
+            setActiveChatButton(panel);
+            renderChatMessages();
+            const inputField = document.getElementById('chatMsgInput');
+            if (inputField) {
+                if (panel === 'chat') inputField.placeholder = 'Type message...';
+                else if (panel === 'rules') inputField.placeholder = 'Ask about rules...';
+                else inputField.placeholder = 'Describe your issue...';
             }
-            
-            let currentPanel = 'chat';
-            const panelMessages = {
-                chat: [{ role: 'bot', text: 'Welcome! Type your message.' }],
-                rules: [{ role: 'bot', text: '📌 Community Rules:\n1. Be respectful.\n2. No spam.\n3. Follow guidelines.\n4. Enjoy the space!' }],
-                support: [{ role: 'bot', text: '🎧 Support Hub:\nHow can we help? Ask anything, we are here 24/7.' }]
-            };
-            
-            function renderMessages() {
-                const messagesArea = document.getElementById('messagesArea');
-                if (!messagesArea) return;
-                const messages = panelMessages[currentPanel] || [];
-                messagesArea.innerHTML = '';
-                messages.forEach(msg => {
-                    const bubble = document.createElement('div');
-                    bubble.className = `message-bubble ${msg.role === 'user' ? 'user' : 'bot'}`;
-                    bubble.textContent = msg.text;
-                    messagesArea.appendChild(bubble);
+        }
+
+        function handleSendMessage() {
+            const inputEl = document.getElementById('chatMsgInput');
+            let msg = inputEl?.value.trim();
+            if (!msg) return;
+            addMessage(currentChatPanel, 'user', msg);
+            if (inputEl) inputEl.value = '';
+            setTimeout(() => {
+                let reply = '';
+                if (currentChatPanel === 'chat') reply = `🤖 Bot: "${msg}" — keep grinding, more offers coming!`;
+                else if (currentChatPanel === 'rules') reply = `📜 Mod: Thanks for asking. ${msg} — our rules ensure fair earnings.`;
+                else reply = `🛟 Support ticket: "${msg}" — we'll assist soon.`;
+                addMessage(currentChatPanel, 'bot', reply);
+            }, 200);
+        }
+
+        // ----- EARN section (based on 2nd image: offers, suppliers, stats)
+        function renderEarn() {
+            return `
+                <div class="section-card">
+                    <h2>💰 Earn Diamonds</h2>
+                    <p>Complete offers, surveys, apps & games — get crypto, PayPal, gift cards.</p>
+                    <div class="stats-grid">
+                        <div class="stat-badge">📊 Completed Offers: 1,034,843</div>
+                        <div class="stat-badge">💰 Total Earned: $473,095.15</div>
+                        <div class="stat-badge">👥 Registered Users: 86,743</div>
+                        <div class="stat-badge">🟢 Online: 2,890</div>
+                    </div>
+                    <hr>
+                    <h3>🎯 Offer Walls</h3>
+                    <div class="offers-grid">
+                        <div class="offer-item">🔥 TOROX • High Pay</div>
+                        <div class="offer-item">📱 AdscendMedia • Surveys</div>
+                        <div class="offer-item">⚡ MM WALL (temp disabled)</div>
+                        <div class="offer-item">🎮 ADGEM (temp disabled)</div>
+                        <div class="offer-item">💎 MonliX • Play & Earn</div>
+                        <div class="offer-item">🪙 waxrewards • Crypto</div>
+                        <div class="offer-item">📲 dtowall • Daily bonus</div>
+                        <div class="offer-item">🎁 lootably • High rewards</div>
+                        <div class="offer-item">🍟 myChips • Surveys</div>
+                        <div class="offer-item">🎯 NTIKME • Videos</div>
+                        <div class="offer-item">📺 HANG ADS • Watch</div>
+                    </div>
+                    <hr>
+                    <p>🔹 Join Discord for giveaways & level-exclusive promocodes!</p>
+                </div>
+            `;
+        }
+
+        // SHOP section (3rd image: cash/crypto + gift cards)
+        function renderShop() {
+            return `
+                <div class="section-card">
+                    <h2>🛒 Rewards Shop</h2>
+                    <div class="shop-grid">
+                        <div class="offer-item"><strong>💵 PayPal</strong> — from $5</div>
+                        <div class="offer-item"><strong>₿ BITCOIN</strong> — instant crypto</div>
+                        <div class="offer-item"><strong>✨ LITECOIN</strong> — low fees</div>
+                        <div class="offer-item"><span style="opacity:0.7;">⚠️ Temporarily Disabled</span> (ETH)</div>
+                        <div class="offer-item"><strong>🎁 RUBLEX</strong> Gift Card</div>
+                        <div class="offer-item"><strong>🎮 DISCOVER NITRO</strong> • Discord Nitro</div>
+                        <div class="offer-item"><strong>📦 Amazon</strong> Gift Cards</div>
+                        <div class="offer-item"><strong>🎮 STEAM Wallet</strong> codes</div>
+                    </div>
+                    <p style="margin-top: 12px;">✅ More cards: Apple, Google Play, Razer Gold — coming soon!</p>
+                </div>
+            `;
+        }
+
+        // LEADERS (4th image: leaderboard with today earnings)
+        function renderLeaders() {
+            return `
+                <div class="section-card">
+                    <h2>🏆 Leaderboard</h2>
+                    <p>⏳ Time left on today's leaderboard: 19h 39m 37s</p>
+                    <div class="leaderboard-list" style="flex-direction:column;">
+                        <div class="leader-row"><span>🥇 1st Kirk Wampler</span><span>Earned 4921 → today</span><span>💰 $1.00 Reward</span></div>
+                        <div class="leader-row"><span>🥈 2nd K</span><span>Earned 2821 → today</span><span>Reward $0.80</span></div>
+                        <div class="leader-row"><span>🥉 3rd Manow Warnjaidee</span><span>Earned 2450 → today</span><span>Reward $0.60</span></div>
+                        <div class="leader-row"><span>4th Jidapa Pornsiri</span><span>Earned 2016 → today</span><span>Reward $0.50</span></div>
+                        <div class="leader-row"><span>5th Jr_scruffy</span><span>Earned 1240 → today</span><span>Reward $0.40</span></div>
+                        <div class="leader-row"><span>6th Oliver Bennett</span><span>Earned 735 → today</span><span>Reward $0.30</span></div>
+                        <div class="leader-row"><span>7th Grosergio</span><span>Earned 512 → today</span><span>Reward $0.20</span></div>
+                        <div class="leader-row"><span>8th FMLQUATTRO</span><span>Earned 386 → today</span><span>Reward $0.10</span></div>
+                        <div class="leader-row"><span>9th + more</span><span>top 10 rewards daily</span><span>🔥</span></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // PROFILE (5th image: details, diamonds, referral)
+        function renderProfile() {
+            return `
+                <div class="section-card">
+                    <h2>👤 Your Profile</h2>
+                    <div class="profile-details" style="flex-direction:column; gap: 12px;">
+                        <div><span class="profile-field">💰 Balance: 632 💎</span><span class="profile-field">🏆 Total Earned: 11,029</span></div>
+                        <div><span class="profile-field">🆔 User ID: edfe85cd-18d4-41fd-be5a-1dd60036625e</span></div>
+                        <div><span class="profile-field">📱 Platform ID: 107559421888581930108</span></div>
+                        <div><span class="profile-field">✅ Verified: False</span><span class="profile-field">👥 Users Referred: 1</span></div>
+                        <div><span class="profile-field">🔗 Referral Code: <strong>k99</strong></span><span class="profile-field">🔁 Referral %: 5%</span></div>
+                        <div><span class="profile-field">🌐 Link: https://grindbux.com/ref/k99</span></div>
+                        <div><span class="profile-field">⭐ Level 32 → Next level diamonds: 201 required</span></div>
+                        <div><span class="profile-field">📋 Withdrawals: 0 | Held offers: 0 | Chargebacks: 0</span></div>
+                    </div>
+                    <button id="copyReferralBtn" style="margin-top:12px; background:#ff5722; border:none; padding:6px 18px; border-radius:60px; color:white;">📋 Copy Referral Link</button>
+                </div>
+            `;
+        }
+
+        // HELP (6th image: earnings diamonds, howto, suppliers)
+        function renderHelp() {
+            return `
+                <div class="section-card">
+                    <h2>🆘 Help Center</h2>
+                    <div class="help-list">
+                        <div class="help-item"><strong>💎 How do I earn diamonds?</strong><br>Complete offers & surveys via Torox, Adscend, MonliX, Lootably, Adgem, RevU, AyeTstudios. Also download apps, play games, watch videos on Cheddar.TV.</div>
+                        <div class="help-item"><strong>📝 Survey providers:</strong> CPX Research, Inbrain.ai, Bitlabs, Timewall → high payouts.</div>
+                        <div class="help-item"><strong>🔄 Withdrawing Diamonds:</strong> Go to Shop → choose PayPal, Bitcoin, Litecoin, or Gift Cards. Minimum payout: 500 diamonds.</div>
+                        <div class="help-item"><strong>❓ Website Issues / Contact Support:</strong> Use our support chat (right panel) or email support@ibuxcn.com</div>
+                        <div class="help-item"><strong>💰 Paid-to-click / Videos:</strong> daily PTC section available soon, check Offers wall.</div>
+                    </div>
+                    <p style="margin-top:12px;">📢 Discord: frequent giveaways & level promocodes!</p>
+                </div>
+            `;
+        }
+
+        // CHAT section inside main (optional show but we keep right sidebar)
+        function renderChatMainView() {
+            return `
+                <div class="section-card">
+                    <h2>💬 Community Chat Hub</h2>
+                    <p>Interact with members, check rules, or get support via the right sidebar. Use tabs CHAT/RULES/SUPPORT.</p>
+                    <div class="stats-mini" style="display:flex; gap:12px; margin-top:16px;">
+                        <div class="stat-badge">👥 Active now: 142</div>
+                        <div class="stat-badge">💬 Messages today: 879</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateMainContent(sectionId) {
+            const container = document.getElementById('mainContent');
+            if (!container) return;
+            let html = '';
+            if (sectionId === 'earn') html = renderEarn();
+            else if (sectionId === 'shop') html = renderShop();
+            else if (sectionId === 'leaders') html = renderLeaders();
+            else if (sectionId === 'profile') html = renderProfile();
+            else if (sectionId === 'help') html = renderHelp();
+            else if (sectionId === 'chatview') html = renderChatMainView();
+            else html = renderEarn();
+            container.innerHTML = html;
+            if (sectionId === 'profile') {
+                const copyBtn = document.getElementById('copyReferralBtn');
+                if (copyBtn) copyBtn.onclick = () => { navigator.clipboard.writeText('https://grindbux.com/ref/k99'); alert('Referral link copied!'); };
+            }
+        }
+
+        // Logo click: show Earn section (1st image style)
+        function handleLogoClick() {
+            currentSection = 'earn';
+            updateMainContent('earn');
+            document.querySelectorAll('.nav-tab').forEach(t => {
+                t.classList.remove('active');
+                if (t.getAttribute('data-section') === 'earn') t.classList.add('active');
+            });
+        }
+
+        // Chat sidebar hide/show logic
+        const chatSidebar = document.getElementById('chatSidebar');
+        const showChatFab = document.getElementById('showChatFab');
+        const hideChatBtn = document.getElementById('hideChatBtn');
+
+        function hideChatSidebar() {
+            if (chatSidebar) chatSidebar.classList.add('collapsed');
+            if (showChatFab) showChatFab.style.display = 'flex';
+        }
+        function showChatSidebar() {
+            if (chatSidebar) chatSidebar.classList.remove('collapsed');
+            if (showChatFab) showChatFab.style.display = 'none';
+        }
+        if (hideChatBtn) hideChatBtn.addEventListener('click', hideChatSidebar);
+        if (showChatFab) showChatFab.addEventListener('click', showChatSidebar);
+        
+        // initialize chat events
+        function initChatEvents() {
+            const sendBtn = document.getElementById('sendChatMsg');
+            const chatInput = document.getElementById('chatMsgInput');
+            if (sendBtn) sendBtn.addEventListener('click', handleSendMessage);
+            if (chatInput) chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendMessage(); });
+            document.querySelectorAll('.action-btn[data-chatpanel]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const panel = btn.getAttribute('data-chatpanel');
+                    if (panel === 'chat') switchChatPanel('chat');
+                    else if (panel === 'rules') switchChatPanel('rules');
+                    else if (panel === 'support') switchChatPanel('support');
                 });
-                messagesArea.scrollTop = messagesArea.scrollHeight;
-            }
-            
-            function updatePanelHeader() {
-                const headerDiv = document.querySelector('#dynamicPanel .panel-header');
-                if (!headerDiv) return;
-                if (currentPanel === 'chat') headerDiv.textContent = '💬 CHAT';
-                else if (currentPanel === 'rules') headerDiv.textContent = '📜 RULES';
-                else headerDiv.textContent = '🛟 SUPPORT';
-            }
-            
-            function rebuildPanelUI() {
-                updatePanelHeader();
-                renderMessages();
-                const inputField = document.getElementById('chatInput');
-                if (inputField) {
-                    if (currentPanel === 'rules') inputField.placeholder = 'Ask about rules...';
-                    else if (currentPanel === 'support') inputField.placeholder = 'Describe your issue...';
-                    else inputField.placeholder = 'Write a message...';
-                }
-            }
-            
-            function updateMainContent(tabId) {
-                const mainContainer = document.getElementById('mainContent');
-                if (!mainContainer) return;
-                let contentHtml = '';
-                switch(tabId) {
-                    case 'dash':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>📈 iBuxCn Dashboard</h2>
-                            <p>Compact real-time interface with smart chat, rules & support hub. All systems operational.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">📊 Active Sessions: 143</div>
-                                <div class="stat-item">💬 Messages: 28</div>
-                                <div class="stat-item">✅ Tasks: 12/24</div>
-                            </div>
-                        </div>`;
-                        break;
-                    case 'analytics':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>📊 Analytics Overview</h2>
-                            <p>Real-time metrics: engagement +32%, page views 2.4k, chat interactions rising.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">📈 Growth: +18%</div>
-                                <div class="stat-item">👥 Users: 892</div>
-                                <div class="stat-item">⏱️ Avg session: 4m</div>
-                            </div>
-                        </div>`;
-                        break;
-                    case 'reports':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>📑 Reports Hub</h2>
-                            <p>Weekly summary, activity logs, and support ticket reports available.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">📄 Generated: 14 reports</div>
-                                <div class="stat-item">✅ Resolved: 32 issues</div>
-                            </div>
-                        </div>`;
-                        break;
-                    case 'tasks':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>✅ Task Manager</h2>
-                            <p>Current tasks: Optimize UI, Update chat responses, Review feedback.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">📋 Pending: 6</div>
-                                <div class="stat-item">✔️ Completed: 18</div>
-                            </div>
-                        </div>`;
-                        break;
-                    case 'team':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>👥 Team iBuxCn</h2>
-                            <p>Core members: Alex, Jamie, Taylor, Morgan — support & development.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">🕒 Online: 5</div>
-                                <div class="stat-item">📅 Active today</div>
-                            </div>
-                        </div>`;
-                        break;
-                    case 'settings':
-                        contentHtml = `<div class="welcome-card">
-                            <h2>⚙️ Settings Panel</h2>
-                            <p>Preferences, notifications, theme options & security controls.</p>
-                            <div class="stats-mini">
-                                <div class="stat-item">🔒 Secure mode</div>
-                                <div class="stat-item">🌙 Dark theme active</div>
-                            </div>
-                        </div>`;
-                        break;
-                    default:
-                        contentHtml = `<div class="welcome-card">
-                            <h2>⚡ iBuxCn Dashboard</h2>
-                            <p>Compact real-time interface with smart chat, rules & support hub. All systems operational.</p>
-                            <div class="stats-mini"><div class="stat-item">✅ Ready</div></div>
-                        </div>`;
-                }
-                mainContainer.innerHTML = contentHtml;
-            }
-            
-            function switchPanel(panel) {
-                currentPanel = panel;
-                document.querySelectorAll('.action-btn').forEach(btn => {
-                    const panelType = btn.getAttribute('data-panel');
-                    if (panelType === panel) btn.classList.add('active-panel');
-                    else btn.classList.remove('active-panel');
+            });
+            // set default active panel
+            switchChatPanel('chat');
+        }
+
+        // Navigation
+        function initNavigation() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const section = tab.getAttribute('data-section');
+                    if (!section) return;
+                    currentSection = section;
+                    updateMainContent(section);
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    // On mobile, after nav maybe keep as is
                 });
-                rebuildPanelUI();
+            });
+        }
+
+        // Logout simulation
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) logoutBtn.addEventListener('click', () => alert('🔒 Logout simulation — session cleared.'));
+
+        // apply initial load
+        function start() {
+            updateMainContent('earn');
+            initNavigation();
+            initChatEvents();
+            const logoDiv = document.getElementById('mainLogo');
+            if (logoDiv) logoDiv.addEventListener('click', handleLogoClick);
+            // ensure chat sidebar is visible on desktop, on mobile adjust
+            if (window.innerWidth <= 800 && chatSidebar && !chatSidebar.classList.contains('collapsed')) {
+                // optional: keep visible but fab logic ok
             }
-            
-            function bindChatEvents() {
-                const sendBtn = document.getElementById('sendBtn');
-                const emojiBtn = document.getElementById('emojiBtn');
-                
-                if (sendBtn) {
-                    const newSend = sendBtn.cloneNode(true);
-                    sendBtn.parentNode.replaceChild(newSend, sendBtn);
-                    newSend.addEventListener('click', function() {
-                        const inputElem = document.getElementById('chatInput');
-                        let message = inputElem ? inputElem.value.trim() : '';
-                        if (message === '') return;
-                        
-                        if (!panelMessages[currentPanel]) panelMessages[currentPanel] = [];
-                        panelMessages[currentPanel].push({ role: 'user', text: message });
-                        renderMessages();
-                        if (inputElem) inputElem.value = '';
-                        
-                        setTimeout(() => {
-                            let reply = '';
-                            if (currentPanel === 'chat') {
-                                reply = `🤖 Echo: "${message}". Chat active. Ask me anything!`;
-                            } else if (currentPanel === 'rules') {
-                                reply = `📜 Rule reminder: "${message}" — please follow community guidelines.`;
-                            } else if (currentPanel === 'support') {
-                                reply = `🛟 Support: we received "${message}". Agent will respond shortly.`;
-                            }
-                            panelMessages[currentPanel].push({ role: 'bot', text: reply });
-                            renderMessages();
-                        }, 180);
-                    });
-                }
-                
-                if (emojiBtn) {
-                    const newEmoji = emojiBtn.cloneNode(true);
-                    emojiBtn.parentNode.replaceChild(newEmoji, emojiBtn);
-                    newEmoji.addEventListener('click', () => {
-                        const inputField = document.getElementById('chatInput');
-                        if (inputField) {
-                            inputField.value += '😊';
-                            inputField.focus();
-                        }
-                    });
-                }
-                
-                const inputElement = document.getElementById('chatInput');
-                if (inputElement) {
-                    const freshInput = inputElement.cloneNode(true);
-                    inputElement.parentNode.replaceChild(freshInput, inputElement);
-                    freshInput.addEventListener('keypress', (e) => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            const sendButton = document.getElementById('sendBtn');
-                            if (sendButton) sendButton.click();
-                        }
-                    });
-                }
-            }
-            
-            function init() {
-                updateMainContent('dash');
-                
-                const navTabs = document.querySelectorAll('.nav-tab');
-                navTabs.forEach(tab => {
-                    tab.addEventListener('click', function(e) {
-                        navTabs.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        const tabValue = this.getAttribute('data-tab');
-                        if (tabValue) updateMainContent(tabValue);
-                        if (window.innerWidth <= 640) {
-                            const mobileNav = document.getElementById('navTabs');
-                            const overlayEl = document.getElementById('overlay');
-                            if (mobileNav) mobileNav.classList.remove('active');
-                            if (overlayEl) overlayEl.classList.remove('active');
-                        }
-                    });
-                });
-                
-                document.querySelectorAll('.action-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const panel = btn.getAttribute('data-panel');
-                        if (panel === 'chat') switchPanel('chat');
-                        else if (panel === 'rules') switchPanel('rules');
-                        else if (panel === 'support') switchPanel('support');
-                    });
-                });
-                
-                const defaultChat = document.querySelector('.action-btn[data-panel="chat"]');
-                if (defaultChat) defaultChat.classList.add('active-panel');
-                
-                bindChatEvents();
-                renderMessages();
-                
-                const homeLink = document.getElementById('homeLink');
-                if (homeLink) {
-                    homeLink.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        updateMainContent('dash');
-                        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                        const dashTab = document.querySelector('.nav-tab[data-tab="dash"]');
-                        if (dashTab) dashTab.classList.add('active');
-                    });
-                }
-                
-                const logoutBtn = document.getElementById('logoutBtn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        alert('🔒 Logout simulation — session would end.');
-                    });
-                }
-                
-                const rectIcon = document.querySelector('.rect-icon');
-                if (rectIcon) rectIcon.addEventListener('click', () => console.log('Menu extra'));
-                
-                const mobileToggle = document.getElementById('mobileMenuToggle');
-                const navTabsContainer = document.getElementById('navTabs');
-                const overlayEl = document.getElementById('overlay');
-                
-                function closeMobileMenu() {
-                    if (navTabsContainer) navTabsContainer.classList.remove('active');
-                    if (overlayEl) overlayEl.classList.remove('active');
-                }
-                
-                function openMobileMenu() {
-                    if (window.innerWidth <= 640) {
-                        if (navTabsContainer) navTabsContainer.classList.add('active');
-                        if (overlayEl) overlayEl.classList.add('active');
-                    }
-                }
-                
-                if (mobileToggle) {
-                    mobileToggle.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (navTabsContainer && navTabsContainer.classList.contains('active')) {
-                            closeMobileMenu();
-                        } else {
-                            openMobileMenu();
-                        }
-                    });
-                }
-                
-                if (overlayEl) {
-                    overlayEl.addEventListener('click', closeMobileMenu);
-                }
-                
-                window.addEventListener('resize', () => {
-                    if (window.innerWidth > 640 && navTabsContainer && navTabsContainer.classList.contains('active')) {
-                        closeMobileMenu();
-                    }
-                });
-            }
-            
-            init();
-        })();
-    </script>
+            if (chatSidebar && chatSidebar.classList.contains('collapsed')) showChatSidebar(); // initial visible
+        }
+        start();
+    })();
+</script>
 </body>
 </html>

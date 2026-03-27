@@ -2,48 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>iBuxCn · Earn & Reward Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>iBuxCn · Earn & Reward Platform</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0b07 0%, #2c150a 50%, #1f0805 100%);
+            font-family: system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0603 0%, #1f0f08 50%, #120604 100%);
             min-height: 100vh;
-            font-size: 13px;
-            line-height: 1.35;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            font-size: 14px;
+            line-height: 1.4;
         }
 
+        /* App wrapper - full width mobile friendly */
         .app-wrapper {
-            max-width: 1450px;
             width: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            border-radius: 32px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 35, 0.3);
-            overflow: hidden;
-            backdrop-filter: blur(3px);
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* header */
+        /* ========== HEADER ========== */
         .header {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #ff6e2e;
-            padding: 8px 24px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff6a2c;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
@@ -56,89 +55,154 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
-        .logo:hover {
-            background: rgba(255, 90, 40, 0.5);
-            transform: scale(0.98);
-        }
+        .logo:active { transform: scale(0.97); background: rgba(255, 90, 40, 0.5); }
         .logo img {
-            height: 34px;
+            height: 30px;
             width: auto;
-            display: block;
         }
         .logo span {
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #ffbc7a;
-            letter-spacing: -0.5px;
         }
 
+        /* mobile menu button */
+        .mobile-menu-btn {
+            background: #ff5722;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 30px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* navigation tabs - desktop */
         .nav-tabs {
             display: flex;
-            gap: 4px;
-            background: #1f130e80;
+            gap: 6px;
+            background: rgba(30, 18, 12, 0.8);
             border-radius: 60px;
-            padding: 4px 8px;
+            padding: 4px 12px;
             flex-wrap: wrap;
         }
         .nav-tab {
-            padding: 6px 20px;
+            padding: 8px 18px;
             font-size: 0.8rem;
             font-weight: 600;
             background: transparent;
             border-radius: 40px;
             cursor: pointer;
             color: #ffcf9a;
-            transition: 0.1s;
+            transition: 0.15s;
+            white-space: nowrap;
         }
         .nav-tab:hover { background: #ff6a2ccc; color: white; }
         .nav-tab.active {
             background: #ff5722;
             color: white;
-            box-shadow: 0 2px 10px #ff5722aa;
+            box-shadow: 0 2px 8px #ff5722aa;
         }
 
         .header-icons {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-shrink: 0;
         }
         .balance-badge {
             background: #1f3a2a;
-            padding: 5px 14px;
-            border-radius: 30px;
+            padding: 6px 14px;
+            border-radius: 40px;
             font-weight: bold;
-            color: #d4ffb0;
-            border-left: 3px solid #ffb347;
+            color: #e5ffb0;
             font-size: 0.75rem;
+            border-left: 2px solid #ffb347;
         }
         .logout-icon {
-            background: #5e2a1a;
+            background: #4e2418;
             border: 1px solid #ff7840;
-            padding: 5px 12px;
-            border-radius: 30px;
+            padding: 6px 14px;
+            border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
             color: #ffc285;
+            font-size: 0.75rem;
         }
 
-        /* main layout */
+        /* mobile navigation overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 24px;
+        }
+        .mobile-nav-overlay.active {
+            display: flex;
+        }
+        .mobile-nav-item {
+            background: #2a1911;
+            border: 1px solid #ff7840;
+            width: 80%;
+            max-width: 280px;
+            padding: 16px 20px;
+            text-align: center;
+            border-radius: 60px;
+            color: #ffcf9a;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .mobile-nav-item:active { background: #ff5722; color: white; transform: scale(0.97); }
+        .close-nav-btn {
+            background: #ff5722;
+            border: none;
+            margin-top: 20px;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* main layout - flex column on mobile, row on desktop */
         .main-container {
             display: flex;
-            min-height: calc(100vh - 62px);
-        }
-        .main-content {
             flex: 1;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 20px 18px;
-            overflow-y: auto;
-            max-height: calc(100vh - 62px);
+            flex-direction: row;
+            min-height: calc(100vh - 70px);
         }
 
-        /* right sidebar (chat container) */
+        .main-content {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            overflow-y: auto;
+            max-height: calc(100vh - 70px);
+        }
+
+        /* right sidebar chat */
         .right-sidebar {
             width: 340px;
-            background: rgba(12, 5, 3, 0.85);
+            background: rgba(10, 5, 3, 0.92);
             backdrop-filter: blur(12px);
             border-left: 1px solid #ff7840;
             display: flex;
@@ -153,17 +217,17 @@
         }
         .chat-panel {
             background: #17100be6;
-            border-radius: 20px;
+            border-radius: 24px;
             margin: 12px;
             display: flex;
             flex-direction: column;
             height: calc(100% - 24px);
             border: 1px solid #ff7640;
+            overflow: hidden;
         }
         .panel-header {
-            padding: 12px 16px;
+            padding: 14px 16px;
             background: #2c1810;
-            border-radius: 20px 20px 0 0;
             font-weight: bold;
             color: #ffbc7a;
             display: flex;
@@ -175,9 +239,29 @@
             border: none;
             color: #ffaa66;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 0.8rem;
             font-weight: bold;
+            padding: 6px 12px;
         }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            background: #1f110b;
+        }
+        .action-btn {
+            flex: 1;
+            background: #2c1911;
+            border: 1px solid #ff7840;
+            padding: 8px 0;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #ffcf9a;
+            cursor: pointer;
+            text-align: center;
+        }
+        .action-btn.active-panel { background: #ff5722; color: white; border-color: #ffbc80; }
         .messages-area {
             flex: 1;
             padding: 12px;
@@ -186,6 +270,7 @@
             flex-direction: column;
             gap: 8px;
             min-height: 280px;
+            background: #0f0805;
         }
         .message-bubble {
             max-width: 90%;
@@ -195,100 +280,219 @@
             color: #ffe0bc;
             font-size: 0.75rem;
             border: 1px solid #ff874c;
+            word-break: break-word;
         }
         .message-bubble.user { align-self: flex-end; background: #ff5722dd; color: white; border-color: #ffb57a; }
         .message-bubble.bot { align-self: flex-start; background: #23150e; }
         .input-area {
             display: flex;
-            gap: 6px;
-            padding: 10px;
+            gap: 8px;
+            padding: 12px;
             border-top: 1px solid #ff7840;
             background: #1c0e08;
-            border-radius: 0 0 20px 20px;
         }
-        .chat-input { flex: 1; background: #2f1d13; border: 1px solid #ff7a48; border-radius: 40px; padding: 8px 14px; color: #fff0df; outline: none; }
-        .send-btn { background: #ff5722; border: none; border-radius: 40px; padding: 6px 16px; color: white; font-weight: bold; cursor: pointer; }
+        .chat-input {
+            flex: 1;
+            background: #2f1d13;
+            border: 1px solid #ff7a48;
+            border-radius: 40px;
+            padding: 10px 14px;
+            color: #fff0df;
+            outline: none;
+            font-size: 0.8rem;
+        }
+        .send-btn {
+            background: #ff5722;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 18px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
         .show-chat-fab {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: #ff5722;
             border-radius: 50px;
-            padding: 10px 18px;
+            padding: 12px 20px;
             color: white;
             font-weight: bold;
             cursor: pointer;
             display: none;
-            z-index: 200;
-            box-shadow: 0 4px 12px black;
+            z-index: 150;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 1px solid #ffaa66;
+            gap: 8px;
+            align-items: center;
         }
-        .action-buttons {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-            padding: 0 12px;
-        }
-        .action-btn {
-            flex: 1;
-            background: #2c1911;
-            border: 1px solid #ff7840;
-            padding: 6px 0;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: #ffcf9a;
-            cursor: pointer;
-            text-align: center;
-        }
-        .action-btn.active-panel { background: #ff5722; color: white; border-color: #ffbc80; }
 
-        /* card style for sections (earn, shop, leaders, profile, help) */
+        /* card styles */
         .section-card {
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(6px);
             border-radius: 28px;
             border: 1px solid #ff7e44;
-            padding: 20px 24px;
+            padding: 20px;
             margin-bottom: 20px;
         }
         .stats-grid, .offers-grid, .shop-grid, .leaderboard-list, .profile-details, .help-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 12px;
             margin-top: 16px;
         }
-        .stat-badge { background: #2e1c12; border-radius: 40px; padding: 10px 20px; border-left: 4px solid #ff7a3a; color: #ffdbb5; }
-        .offer-item, .shop-item { background: #1e130d; padding: 10px 16px; border-radius: 28px; border: 1px solid #ff7a48; width: auto; min-width: 140px; color: #ffddb0; font-weight: 500; }
-        .leader-row { background: #21120b; padding: 8px 16px; border-radius: 60px; display: flex; justify-content: space-between; width: 100%; border-bottom: 1px solid #ff7840; }
-        .profile-field { background: #1d130e; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-right: 12px; margin-bottom: 8px; }
-        .help-item { background: #1f150f; padding: 12px 18px; border-radius: 24px; width: 100%; }
-        h2 { color: #ffb66b; margin-bottom: 12px; font-size: 1.5rem; }
-        h3 { color: #ffbc8a; margin-bottom: 8px; }
+        .stat-badge {
+            background: #2e1c12;
+            border-radius: 40px;
+            padding: 8px 16px;
+            border-left: 4px solid #ff7a3a;
+            color: #ffdbb5;
+            font-size: 0.8rem;
+        }
+        .offer-item, .shop-item {
+            background: #1e130d;
+            padding: 10px 16px;
+            border-radius: 28px;
+            border: 1px solid #ff7a48;
+            min-width: 130px;
+            color: #ffddb0;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        .leader-row {
+            background: #21120b;
+            padding: 10px 16px;
+            border-radius: 60px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 1px solid #ff7840;
+            width: 100%;
+        }
+        .profile-field {
+            background: #1d130e;
+            padding: 8px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            word-break: break-all;
+        }
+        .help-item {
+            background: #1f150f;
+            padding: 14px 18px;
+            border-radius: 24px;
+            width: 100%;
+        }
+        h2 { color: #ffb66b; margin-bottom: 12px; font-size: 1.4rem; }
+        h3 { color: #ffbc8a; margin-bottom: 8px; font-size: 1rem; }
         hr { border-color: #ff7840; margin: 12px 0; }
 
-        @media (max-width: 800px) {
-            .main-container { flex-direction: column; }
-            .right-sidebar { width: 100%; border-left: none; border-top: 1px solid #ff7840; max-height: 400px; }
-            .right-sidebar.collapsed { display: none; }
-            .show-chat-fab { display: flex; align-items: center; gap: 8px; }
-            .nav-tabs { justify-content: center; }
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media screen and (max-width: 780px) {
+            .header {
+                padding: 10px 12px;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .nav-tabs {
+                display: none;
+            }
+            .main-container {
+                flex-direction: column;
+            }
+            .right-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 2px solid #ff7840;
+                max-height: 450px;
+                transition: all 0.2s;
+            }
+            .right-sidebar.collapsed {
+                display: none;
+            }
+            .show-chat-fab {
+                display: flex;
+            }
+            .main-content {
+                max-height: none;
+                padding: 12px;
+            }
+            .section-card {
+                padding: 16px;
+            }
+            .offer-item, .shop-item {
+                width: calc(50% - 12px);
+                min-width: auto;
+                text-align: center;
+            }
+            .leader-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .profile-field {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+            }
         }
-        @media (max-width: 550px) {
-            .header { flex-direction: column; align-items: stretch; }
-            .nav-tabs { justify-content: center; }
+
+        @media screen and (max-width: 480px) {
+            .offer-item, .shop-item {
+                width: 100%;
+            }
+            .balance-badge {
+                font-size: 0.65rem;
+                padding: 4px 10px;
+            }
+            .logout-icon {
+                padding: 4px 10px;
+                font-size: 0.7rem;
+            }
+            .logo span {
+                font-size: 0.9rem;
+            }
+            .logo img {
+                height: 24px;
+            }
         }
-        button { cursor: pointer; }
-        .referral-code { background: #00000066; padding: 6px 12px; border-radius: 20px; font-family: monospace; }
+
+        button, .nav-tab, .action-btn, .logo, .logout-icon, .mobile-nav-item {
+            cursor: pointer;
+            transition: 0.1s ease;
+        }
+        .referral-code-block {
+            background: #00000066;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: #ff5722;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 40px;
+            color: white;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
 <div class="app-wrapper">
     <header class="header">
         <div class="logo" id="mainLogo">
-            <img src="https://imglink.cc/cdn/_kyTq7xzuI.png" alt="iBuxCn" id="logoImage" onerror="this.onerror=null; this.parentElement.innerHTML='<span>🔥iBuxCn</span>'">
+            <img src="https://imglink.cc/cdn/_kyTq7xzuI.png" alt="iBuxCn" id="logoImage" onerror="this.outerHTML='<div class=\'logo\'><span>🔥iBuxCn</span></div>'">
             <span>iBuxCn</span>
         </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         <nav class="nav-tabs" id="navTabs">
             <div class="nav-tab active" data-section="earn">EARN</div>
             <div class="nav-tab" data-section="shop">SHOP</div>
@@ -298,14 +502,25 @@
             <div class="nav-tab" data-section="chatview">CHAT</div>
         </nav>
         <div class="header-icons">
-            <div class="balance-badge">💎 BAL: 632</div>
-            <div class="logout-icon" id="logoutBtn">🚪 EXIT</div>
+            <div class="balance-badge">💎 632 pts</div>
+            <div class="logout-icon" id="logoutBtn">🚪 Exit</div>
         </div>
     </header>
 
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-item" data-section="earn">💰 EARN</div>
+        <div class="mobile-nav-item" data-section="shop">🛒 SHOP</div>
+        <div class="mobile-nav-item" data-section="leaders">🏆 LEADERS</div>
+        <div class="mobile-nav-item" data-section="profile">👤 PROFILE</div>
+        <div class="mobile-nav-item" data-section="help">🆘 HELP</div>
+        <div class="mobile-nav-item" data-section="chatview">💬 CHAT</div>
+        <button class="close-nav-btn" id="closeNavBtn">✕ CLOSE</button>
+    </div>
+
     <div class="main-container">
         <main class="main-content" id="mainContent">
-            <!-- dynamic sections loaded here -->
+            <!-- dynamic content -->
         </main>
 
         <aside class="right-sidebar" id="chatSidebar">
@@ -320,10 +535,10 @@
                     <button class="action-btn" data-chatpanel="support">SUPPORT</button>
                 </div>
                 <div class="messages-area" id="chatMessagesArea">
-                    <div class="message-bubble bot">✨ Welcome! Chat, rules & support here.</div>
+                    <div class="message-bubble bot">✨ Welcome! Chat, rules & support available.</div>
                 </div>
                 <div class="input-area">
-                    <input type="text" class="chat-input" id="chatMsgInput" placeholder="Write a message...">
+                    <input type="text" class="chat-input" id="chatMsgInput" placeholder="Type a message...">
                     <button class="send-btn" id="sendChatMsg">SEND</button>
                 </div>
             </div>
@@ -334,16 +549,15 @@
 
 <script>
     (function() {
-        // ---- DATA MODELS ----
+        // ---------- DATA ----------
         let currentSection = 'earn';
         let currentChatPanel = 'chat';
         let chatHistory = {
-            chat: [{ role: 'bot', text: 'Welcome! Ask anything about tasks or promos.' }],
-            rules: [{ role: 'bot', text: '📜 RULES:\n1. No cheating on offers.\n2. Respect members.\n3. Only one account.\n4. Enjoy grinding!' }],
-            support: [{ role: 'bot', text: '🛟 SUPPORT: Open a ticket or describe your issue. We reply within 24h.' }]
+            chat: [{ role: 'bot', text: '👋 Hey! Ask about offers, rewards or anything!' }],
+            rules: [{ role: 'bot', text: '📜 RULES:\n• No cheating/spamming\n• Respect all members\n• One account per user\n• Enjoy earning!' }],
+            support: [{ role: 'bot', text: '🛟 SUPPORT: Describe your issue. We respond within 24h. Use email or ticket system.' }]
         };
 
-        // helper: render chat messages based on current panel
         function renderChatMessages() {
             const container = document.getElementById('chatMessagesArea');
             if (!container) return;
@@ -377,9 +591,9 @@
             renderChatMessages();
             const inputField = document.getElementById('chatMsgInput');
             if (inputField) {
-                if (panel === 'chat') inputField.placeholder = 'Type message...';
+                if (panel === 'chat') inputField.placeholder = 'Type your message...';
                 else if (panel === 'rules') inputField.placeholder = 'Ask about rules...';
-                else inputField.placeholder = 'Describe your issue...';
+                else inputField.placeholder = 'Describe your support issue...';
             }
         }
 
@@ -391,167 +605,156 @@
             if (inputEl) inputEl.value = '';
             setTimeout(() => {
                 let reply = '';
-                if (currentChatPanel === 'chat') reply = `🤖 Bot: "${msg}" — keep grinding, more offers coming!`;
-                else if (currentChatPanel === 'rules') reply = `📜 Mod: Thanks for asking. ${msg} — our rules ensure fair earnings.`;
-                else reply = `🛟 Support ticket: "${msg}" — we'll assist soon.`;
+                if (currentChatPanel === 'chat') {
+                    reply = `🤖 Bot: "${msg}" — Keep grinding! Complete offers to earn diamonds.`;
+                } else if (currentChatPanel === 'rules') {
+                    reply = `📜 Mod: Thanks for checking. ${msg} — always follow fair play.`;
+                } else {
+                    reply = `🛟 Support: We received "${msg}". Our team will get back soon.`;
+                }
                 addMessage(currentChatPanel, 'bot', reply);
             }, 200);
         }
 
-        // ----- EARN section (based on 2nd image: offers, suppliers, stats)
+        // ----- SECTION RENDERS (based on images) -----
         function renderEarn() {
-            return `
-                <div class="section-card">
-                    <h2>💰 Earn Diamonds</h2>
-                    <p>Complete offers, surveys, apps & games — get crypto, PayPal, gift cards.</p>
-                    <div class="stats-grid">
-                        <div class="stat-badge">📊 Completed Offers: 1,034,843</div>
-                        <div class="stat-badge">💰 Total Earned: $473,095.15</div>
-                        <div class="stat-badge">👥 Registered Users: 86,743</div>
-                        <div class="stat-badge">🟢 Online: 2,890</div>
-                    </div>
-                    <hr>
-                    <h3>🎯 Offer Walls</h3>
-                    <div class="offers-grid">
-                        <div class="offer-item">🔥 TOROX • High Pay</div>
-                        <div class="offer-item">📱 AdscendMedia • Surveys</div>
-                        <div class="offer-item">⚡ MM WALL (temp disabled)</div>
-                        <div class="offer-item">🎮 ADGEM (temp disabled)</div>
-                        <div class="offer-item">💎 MonliX • Play & Earn</div>
-                        <div class="offer-item">🪙 waxrewards • Crypto</div>
-                        <div class="offer-item">📲 dtowall • Daily bonus</div>
-                        <div class="offer-item">🎁 lootably • High rewards</div>
-                        <div class="offer-item">🍟 myChips • Surveys</div>
-                        <div class="offer-item">🎯 NTIKME • Videos</div>
-                        <div class="offer-item">📺 HANG ADS • Watch</div>
-                    </div>
-                    <hr>
-                    <p>🔹 Join Discord for giveaways & level-exclusive promocodes!</p>
+            return `<div class="section-card">
+                <h2>💰 Earn Free Crypto, PayPal & Gift Cards</h2>
+                <p>Join thousands of users earning hundreds daily! Complete surveys, download apps, play games.</p>
+                <div class="stats-grid">
+                    <div class="stat-badge">📊 Completed Offers: 1,034,843</div>
+                    <div class="stat-badge">💰 Total Earned: $473,095.15</div>
+                    <div class="stat-badge">👥 Registered: 86,743</div>
+                    <div class="stat-badge">🟢 Online: 2,890</div>
                 </div>
-            `;
+                <hr>
+                <h3>🎯 Offer Walls</h3>
+                <div class="offers-grid">
+                    <div class="offer-item">🔥 TOROX</div><div class="offer-item">📱 AdscendMedia</div>
+                    <div class="offer-item">⚡ MM WALL (disabled)</div><div class="offer-item">🎮 ADGEM (disabled)</div>
+                    <div class="offer-item">💎 MonliX</div><div class="offer-item">🪙 waxrewards</div>
+                    <div class="offer-item">📲 dtowall</div><div class="offer-item">🎁 lootably</div>
+                    <div class="offer-item">🍟 myChips</div><div class="offer-item">🎯 NTIKME</div>
+                    <div class="offer-item">📺 HANG ADS</div>
+                </div>
+                <p style="margin-top:12px">🔹 Join Discord for giveaways & level-exclusive promocodes!</p>
+            </div>`;
         }
 
-        // SHOP section (3rd image: cash/crypto + gift cards)
         function renderShop() {
-            return `
-                <div class="section-card">
-                    <h2>🛒 Rewards Shop</h2>
-                    <div class="shop-grid">
-                        <div class="offer-item"><strong>💵 PayPal</strong> — from $5</div>
-                        <div class="offer-item"><strong>₿ BITCOIN</strong> — instant crypto</div>
-                        <div class="offer-item"><strong>✨ LITECOIN</strong> — low fees</div>
-                        <div class="offer-item"><span style="opacity:0.7;">⚠️ Temporarily Disabled</span> (ETH)</div>
-                        <div class="offer-item"><strong>🎁 RUBLEX</strong> Gift Card</div>
-                        <div class="offer-item"><strong>🎮 DISCOVER NITRO</strong> • Discord Nitro</div>
-                        <div class="offer-item"><strong>📦 Amazon</strong> Gift Cards</div>
-                        <div class="offer-item"><strong>🎮 STEAM Wallet</strong> codes</div>
-                    </div>
-                    <p style="margin-top: 12px;">✅ More cards: Apple, Google Play, Razer Gold — coming soon!</p>
+            return `<div class="section-card">
+                <h2>🛒 Cash & Crypto / Gift Cards</h2>
+                <div class="shop-grid">
+                    <div class="shop-item">💵 PayPal</div><div class="shop-item">₿ Bitcoin</div>
+                    <div class="shop-item">✨ Litecoin</div><div class="shop-item">⚠️ ETH (Disabled)</div>
+                    <div class="shop-item">🎁 RUBLEX Card</div><div class="shop-item">🎮 Discord Nitro</div>
+                    <div class="shop-item">📦 Amazon</div><div class="shop-item">🎮 STEAM Wallet</div>
                 </div>
-            `;
+                <p>✅ More cards: Apple, Google Play, Razer Gold — coming soon!</p>
+            </div>`;
         }
 
-        // LEADERS (4th image: leaderboard with today earnings)
         function renderLeaders() {
-            return `
-                <div class="section-card">
-                    <h2>🏆 Leaderboard</h2>
-                    <p>⏳ Time left on today's leaderboard: 19h 39m 37s</p>
-                    <div class="leaderboard-list" style="flex-direction:column;">
-                        <div class="leader-row"><span>🥇 1st Kirk Wampler</span><span>Earned 4921 → today</span><span>💰 $1.00 Reward</span></div>
-                        <div class="leader-row"><span>🥈 2nd K</span><span>Earned 2821 → today</span><span>Reward $0.80</span></div>
-                        <div class="leader-row"><span>🥉 3rd Manow Warnjaidee</span><span>Earned 2450 → today</span><span>Reward $0.60</span></div>
-                        <div class="leader-row"><span>4th Jidapa Pornsiri</span><span>Earned 2016 → today</span><span>Reward $0.50</span></div>
-                        <div class="leader-row"><span>5th Jr_scruffy</span><span>Earned 1240 → today</span><span>Reward $0.40</span></div>
-                        <div class="leader-row"><span>6th Oliver Bennett</span><span>Earned 735 → today</span><span>Reward $0.30</span></div>
-                        <div class="leader-row"><span>7th Grosergio</span><span>Earned 512 → today</span><span>Reward $0.20</span></div>
-                        <div class="leader-row"><span>8th FMLQUATTRO</span><span>Earned 386 → today</span><span>Reward $0.10</span></div>
-                        <div class="leader-row"><span>9th + more</span><span>top 10 rewards daily</span><span>🔥</span></div>
-                    </div>
+            return `<div class="section-card">
+                <h2>🏆 Leaderboard</h2>
+                <p>⏳ Time left: 19h 39m 37s</p>
+                <div class="leaderboard-list" style="flex-direction:column;">
+                    <div class="leader-row"><span>🥇 1st Kirk Wampler</span><span>4921 pts → $1.00</span></div>
+                    <div class="leader-row"><span>🥈 2nd K</span><span>2821 pts → $0.80</span></div>
+                    <div class="leader-row"><span>🥉 3rd Manow Warnjaidee</span><span>2450 pts → $0.60</span></div>
+                    <div class="leader-row"><span>4th Jidapa Pornsiri</span><span>2016 pts → $0.50</span></div>
+                    <div class="leader-row"><span>5th Jr_scruffy</span><span>1240 pts → $0.40</span></div>
+                    <div class="leader-row"><span>6th Oliver Bennett</span><span>735 pts → $0.30</span></div>
+                    <div class="leader-row"><span>7th Grosergio</span><span>512 pts → $0.20</span></div>
+                    <div class="leader-row"><span>8th FMLQUATTRO</span><span>386 pts → $0.10</span></div>
                 </div>
-            `;
+            </div>`;
         }
 
-        // PROFILE (5th image: details, diamonds, referral)
         function renderProfile() {
-            return `
-                <div class="section-card">
-                    <h2>👤 Your Profile</h2>
-                    <div class="profile-details" style="flex-direction:column; gap: 12px;">
-                        <div><span class="profile-field">💰 Balance: 632 💎</span><span class="profile-field">🏆 Total Earned: 11,029</span></div>
-                        <div><span class="profile-field">🆔 User ID: edfe85cd-18d4-41fd-be5a-1dd60036625e</span></div>
-                        <div><span class="profile-field">📱 Platform ID: 107559421888581930108</span></div>
-                        <div><span class="profile-field">✅ Verified: False</span><span class="profile-field">👥 Users Referred: 1</span></div>
-                        <div><span class="profile-field">🔗 Referral Code: <strong>k99</strong></span><span class="profile-field">🔁 Referral %: 5%</span></div>
-                        <div><span class="profile-field">🌐 Link: https://grindbux.com/ref/k99</span></div>
-                        <div><span class="profile-field">⭐ Level 32 → Next level diamonds: 201 required</span></div>
-                        <div><span class="profile-field">📋 Withdrawals: 0 | Held offers: 0 | Chargebacks: 0</span></div>
-                    </div>
-                    <button id="copyReferralBtn" style="margin-top:12px; background:#ff5722; border:none; padding:6px 18px; border-radius:60px; color:white;">📋 Copy Referral Link</button>
+            return `<div class="section-card">
+                <h2>👤 Your Profile</h2>
+                <div class="profile-details">
+                    <div class="profile-field">💰 Balance: 632 💎</div>
+                    <div class="profile-field">🏆 Total Earned: 11,029</div>
+                    <div class="profile-field">🆔 ID: edfe85cd-18d4-41fd-be5a-1dd60036625e</div>
+                    <div class="profile-field">📱 Platform: 107559421888581930108</div>
+                    <div class="profile-field">✅ Verified: False</div>
+                    <div class="profile-field">👥 Referred: 1 user</div>
+                    <div class="profile-field">🔗 Referral Code: <strong>k99</strong> (5%)</div>
+                    <div class="profile-field">🌐 Link: https://grindbux.com/ref/k99</div>
+                    <div class="profile-field">⭐ Level 32 → Next: 201 diamonds</div>
                 </div>
-            `;
+                <button id="copyReferralBtn" class="copy-btn">📋 Copy Referral Link</button>
+            </div>`;
         }
 
-        // HELP (6th image: earnings diamonds, howto, suppliers)
         function renderHelp() {
-            return `
-                <div class="section-card">
-                    <h2>🆘 Help Center</h2>
-                    <div class="help-list">
-                        <div class="help-item"><strong>💎 How do I earn diamonds?</strong><br>Complete offers & surveys via Torox, Adscend, MonliX, Lootably, Adgem, RevU, AyeTstudios. Also download apps, play games, watch videos on Cheddar.TV.</div>
-                        <div class="help-item"><strong>📝 Survey providers:</strong> CPX Research, Inbrain.ai, Bitlabs, Timewall → high payouts.</div>
-                        <div class="help-item"><strong>🔄 Withdrawing Diamonds:</strong> Go to Shop → choose PayPal, Bitcoin, Litecoin, or Gift Cards. Minimum payout: 500 diamonds.</div>
-                        <div class="help-item"><strong>❓ Website Issues / Contact Support:</strong> Use our support chat (right panel) or email support@ibuxcn.com</div>
-                        <div class="help-item"><strong>💰 Paid-to-click / Videos:</strong> daily PTC section available soon, check Offers wall.</div>
-                    </div>
-                    <p style="margin-top:12px;">📢 Discord: frequent giveaways & level promocodes!</p>
+            return `<div class="section-card">
+                <h2>🆘 Help Center</h2>
+                <div class="help-list">
+                    <div class="help-item"><strong>💎 How to earn diamonds?</strong><br>Complete offers/surveys via Torox, Adscend, MonliX, Lootably, AdGem, RevU, AyeT. Also download apps, play games, watch Cheddar.TV.</div>
+                    <div class="help-item"><strong>📝 Survey providers:</strong> CPX Research, Inbrain.ai, Bitlabs, Timewall → high payouts.</div>
+                    <div class="help-item"><strong>🔄 Withdrawals:</strong> Go to Shop → choose PayPal, Bitcoin, Litecoin or gift cards. Min 500 diamonds.</div>
+                    <div class="help-item"><strong>❓ Website Issues / Support:</strong> Use the SUPPORT chat panel or email support@ibuxcn.com</div>
+                    <div class="help-item"><strong>🎥 Paid-to-click & Videos:</strong> Available on Cheddar.TV & offerwalls.</div>
                 </div>
-            `;
+                <p>📢 Discord: frequent giveaways & level promocodes!</p>
+            </div>`;
         }
 
-        // CHAT section inside main (optional show but we keep right sidebar)
         function renderChatMainView() {
-            return `
-                <div class="section-card">
-                    <h2>💬 Community Chat Hub</h2>
-                    <p>Interact with members, check rules, or get support via the right sidebar. Use tabs CHAT/RULES/SUPPORT.</p>
-                    <div class="stats-mini" style="display:flex; gap:12px; margin-top:16px;">
-                        <div class="stat-badge">👥 Active now: 142</div>
-                        <div class="stat-badge">💬 Messages today: 879</div>
-                    </div>
-                </div>
-            `;
+            return `<div class="section-card">
+                <h2>💬 Chat Hub</h2>
+                <p>Use the right sidebar to chat, read rules, or get support. Choose between CHAT, RULES, SUPPORT tabs.</p>
+                <div class="stats-grid"><div class="stat-badge">👥 Active: 142</div><div class="stat-badge">💬 Messages: 879 today</div></div>
+            </div>`;
         }
 
-        function updateMainContent(sectionId) {
+        function updateMainContent(section) {
             const container = document.getElementById('mainContent');
             if (!container) return;
             let html = '';
-            if (sectionId === 'earn') html = renderEarn();
-            else if (sectionId === 'shop') html = renderShop();
-            else if (sectionId === 'leaders') html = renderLeaders();
-            else if (sectionId === 'profile') html = renderProfile();
-            else if (sectionId === 'help') html = renderHelp();
-            else if (sectionId === 'chatview') html = renderChatMainView();
+            if (section === 'earn') html = renderEarn();
+            else if (section === 'shop') html = renderShop();
+            else if (section === 'leaders') html = renderLeaders();
+            else if (section === 'profile') html = renderProfile();
+            else if (section === 'help') html = renderHelp();
+            else if (section === 'chatview') html = renderChatMainView();
             else html = renderEarn();
             container.innerHTML = html;
-            if (sectionId === 'profile') {
+            if (section === 'profile') {
                 const copyBtn = document.getElementById('copyReferralBtn');
                 if (copyBtn) copyBtn.onclick = () => { navigator.clipboard.writeText('https://grindbux.com/ref/k99'); alert('Referral link copied!'); };
             }
         }
 
-        // Logo click: show Earn section (1st image style)
+        // Logo click -> Earn section (1st image)
         function handleLogoClick() {
             currentSection = 'earn';
             updateMainContent('earn');
-            document.querySelectorAll('.nav-tab').forEach(t => {
-                t.classList.remove('active');
-                if (t.getAttribute('data-section') === 'earn') t.classList.add('active');
+            setActiveNav('earn');
+            closeMobileOverlay();
+        }
+
+        function setActiveNav(sectionId) {
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-section') === sectionId) tab.classList.add('active');
             });
         }
 
-        // Chat sidebar hide/show logic
+        function closeMobileOverlay() {
+            const overlay = document.getElementById('mobileNavOverlay');
+            if (overlay) overlay.classList.remove('active');
+        }
+
+        function openMobileOverlay() {
+            const overlay = document.getElementById('mobileNavOverlay');
+            if (overlay) overlay.classList.add('active');
+        }
+
+        // Chat sidebar hide/show
         const chatSidebar = document.getElementById('chatSidebar');
         const showChatFab = document.getElementById('showChatFab');
         const hideChatBtn = document.getElementById('hideChatBtn');
@@ -564,61 +767,69 @@
             if (chatSidebar) chatSidebar.classList.remove('collapsed');
             if (showChatFab) showChatFab.style.display = 'none';
         }
-        if (hideChatBtn) hideChatBtn.addEventListener('click', hideChatSidebar);
-        if (showChatFab) showChatFab.addEventListener('click', showChatSidebar);
-        
-        // initialize chat events
-        function initChatEvents() {
+
+        // ----- INITIALIZATION -----
+        function init() {
+            updateMainContent('earn');
+            // Desktop nav
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const section = tab.getAttribute('data-section');
+                    if (section) {
+                        currentSection = section;
+                        updateMainContent(section);
+                        setActiveNav(section);
+                        closeMobileOverlay();
+                    }
+                });
+            });
+            // Mobile overlay items
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const section = item.getAttribute('data-section');
+                    if (section) {
+                        updateMainContent(section);
+                        setActiveNav(section);
+                        closeMobileOverlay();
+                    }
+                });
+            });
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            if (mobileBtn) mobileBtn.addEventListener('click', openMobileOverlay);
+            const closeNav = document.getElementById('closeNavBtn');
+            if (closeNav) closeNav.addEventListener('click', closeMobileOverlay);
+            document.getElementById('mobileNavOverlay')?.addEventListener('click', (e) => { if(e.target === document.getElementById('mobileNavOverlay')) closeMobileOverlay(); });
+            
+            // Chat events
             const sendBtn = document.getElementById('sendChatMsg');
             const chatInput = document.getElementById('chatMsgInput');
             if (sendBtn) sendBtn.addEventListener('click', handleSendMessage);
             if (chatInput) chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendMessage(); });
             document.querySelectorAll('.action-btn[data-chatpanel]').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', () => {
                     const panel = btn.getAttribute('data-chatpanel');
                     if (panel === 'chat') switchChatPanel('chat');
                     else if (panel === 'rules') switchChatPanel('rules');
                     else if (panel === 'support') switchChatPanel('support');
                 });
             });
-            // set default active panel
             switchChatPanel('chat');
-        }
-
-        // Navigation
-        function initNavigation() {
-            const tabs = document.querySelectorAll('.nav-tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    const section = tab.getAttribute('data-section');
-                    if (!section) return;
-                    currentSection = section;
-                    updateMainContent(section);
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    // On mobile, after nav maybe keep as is
-                });
-            });
-        }
-
-        // Logout simulation
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) logoutBtn.addEventListener('click', () => alert('🔒 Logout simulation — session cleared.'));
-
-        // apply initial load
-        function start() {
-            updateMainContent('earn');
-            initNavigation();
-            initChatEvents();
+            
+            if (hideChatBtn) hideChatBtn.addEventListener('click', hideChatSidebar);
+            if (showChatFab) showChatFab.addEventListener('click', showChatSidebar);
+            
             const logoDiv = document.getElementById('mainLogo');
             if (logoDiv) logoDiv.addEventListener('click', handleLogoClick);
-            // ensure chat sidebar is visible on desktop, on mobile adjust
-            if (window.innerWidth <= 800 && chatSidebar && !chatSidebar.classList.contains('collapsed')) {
-                // optional: keep visible but fab logic ok
+            
+            const logout = document.getElementById('logoutBtn');
+            if (logout) logout.addEventListener('click', () => alert('🔒 Logout simulation. Session cleared.'));
+            
+            // ensure on mobile initially chat visible but not overlapping
+            if (window.innerWidth <= 780) {
+                // good
             }
-            if (chatSidebar && chatSidebar.classList.contains('collapsed')) showChatSidebar(); // initial visible
         }
-        start();
+        init();
     })();
 </script>
 </body>
